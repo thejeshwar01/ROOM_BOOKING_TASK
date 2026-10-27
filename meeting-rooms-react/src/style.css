@@ -1,0 +1,713 @@
+/* Outfit font is loaded with a <link> in index.html */
+
+/* ///THEME COLORS/// */
+:root {
+    --bg: #0a0a0a;
+    --panel: #121212;
+    --panel-light: #1a1a1a;
+    --border: rgba(232, 185, 49, 0.18);
+    --gold: #e8cf95;
+    --gold-dark: #5c5545;
+    --text: #f1f1f1;
+    --muted: #a8a8a8;
+    --beige: #ece0c8;
+    --beige-light: #f6eedd;
+    --beige-dark: #d8c6a2;
+    --ink: #2a2216;
+    --bronze: #8a6516;
+    --sidebar-width: 240px;
+}
+
+body {
+    font-family: "Outfit", "Segoe UI", sans-serif;
+    letter-spacing: 0.01em;
+    background: radial-gradient(circle at top left, #1a1508 0%, var(--bg) 45%);
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* React mounts into #root; its children lay out as if they were directly in body */
+#root {
+    display: contents;
+}
+
+main {
+    flex: 1;
+}
+
+.gold-text {
+    color: var(--gold);
+}
+
+/* ///SIDEBAR/// */
+/* Black sidebar with a beige panel sitting on top of it */
+#sidebar {
+    background-color: var(--panel);
+    border-bottom: 1px solid var(--border);
+}
+
+#navbar {
+    padding: 10px;
+}
+
+#navbar > .container-fluid {
+    position: relative;
+    /* background: #57410c; */
+    background: linear-gradient(160deg,  #e8cf95, var(--beige) 15%, #57410c);
+    border: 1px solid rgba(45, 116, 130, 0.55);
+    border-radius: 14px;
+    padding: 10px 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+#navbar .brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--panel);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    color: var(--gold);
+    font-size: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+#navbar .navbar-toggler {
+    color: var(--ink);
+    border-color: rgba(198, 132, 32, 0.3);
+    font-size: 1.5rem;
+}
+
+#navbar .navbar-toggler:focus {
+    box-shadow: 0 0 0 2px rgba(42, 34, 22, 0.2);
+}
+
+#navbar .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 12px 16px;
+    margin: 4px 0;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+#navbar .nav-link i {
+    color: var(--bronze);
+    font-size: 1.25rem;
+}
+
+#navbar .nav-link:hover {
+    background-color: rgba(17, 14, 10, 0.08);
+}
+
+#navbar .nav-link.active {
+    background-color: var(--panel);
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+#navbar .nav-link.active i {
+    color: var(--gold);
+}
+
+/* Small button that hides the navbar */
+.sidebar-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin: 0 8px 0 auto;
+    background: transparent;
+    border: 1px solid rgba(42, 34, 22, 0.3);
+    border-radius: 50%;
+    color: var(--ink);
+    font-size: 0.75rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar-close:hover {
+    background-color: var(--ink);
+    color: var(--beige-light);
+}
+
+/* Button that brings the navbar back */
+.sidebar-open {
+    display: none;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1030;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, var(--beige-light), var(--beige-dark));
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    color: var(--ink);
+    font-size: 1.4rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+body.sidebar-hidden #sidebar {
+    display: none;
+}
+
+body.sidebar-hidden .sidebar-open {
+    display: inline-flex;
+}
+
+body.sidebar-hidden main {
+    padding-top: 60px;
+}
+
+/* Sidebar becomes a fixed left column on large screens */
+@media (min-width: 992px) {
+    #sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: var(--sidebar-width);
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+    }
+
+    #sidebar .navbar {
+        height: 100%;
+        align-items: stretch;
+        padding: 16px;
+    }
+
+    #sidebar .container-fluid {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 36px 14px 20px;
+    }
+
+    #sidebar .sidebar-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        margin: 0;
+    }
+
+    body.sidebar-hidden main,
+    body.sidebar-hidden footer {
+        margin-left: 0;
+    }
+
+    #sidebar .brand-icon {
+        align-self: center;
+        width: 64px;
+        height: 64px;
+        font-size: 2rem;
+        margin: 0 0 32px 0;
+    }
+
+    #sidebar .navbar-collapse {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #sidebar .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    main,
+    footer {
+        margin-left: var(--sidebar-width);
+    }
+}
+
+/* ///PAGE HEADINGS/// */
+.page-title {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.page-subtitle {
+    color: var(--muted);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* ///FILTERS/// */
+.filter-box,
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 100%;
+    padding: 8px 14px;
+    background-color: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.filter-box > i,
+.search-box > i {
+    color: var(--muted);
+    font-size: 1.25rem;
+}
+
+.filter-box label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+.filter-box .form-select,
+.filter-box .form-control,
+.search-box .form-control {
+    background-color: transparent;
+    border: none;
+    padding: 0 24px 0 0;
+    box-shadow: none;
+    color: var(--text);
+}
+
+.search-box .form-control {
+    padding: 4px 0;
+}
+
+.filter-box .form-select option {
+    background-color: var(--panel);
+}
+
+.filter-box:focus-within,
+.search-box:focus-within {
+    border-color: var(--gold);
+}
+
+/* ///BUTTONS/// */
+.btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: #111;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+}
+
+.btn-gold:hover,
+.btn-gold:focus {
+    background: var(--gold);
+    color: #000;
+    box-shadow: 0 18px 40px rgba(221, 155, 33, 0.6);
+}
+
+.btn-outline-gold {
+    background-color: transparent;
+    color: var(--gold);
+    font-weight: 500;
+    border: 1px solid var(--gold);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.btn-outline-gold {
+    display: inline-flex;
+}
+
+.btn-outline-gold:hover,
+.btn-outline-gold:focus {
+    background-color: var(--gold);
+    color: #111;
+}
+
+/* ///ROOM CARDS/// */
+.room-card {
+    position: relative;
+    gap:25px;
+    height: 100%;
+    background-color: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    color: var(--text);
+    background-color:  #3f3725;
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s, box-shadow 0.25s;
+}
+
+/* Hovered card grows above its neighbours */
+.room-card:hover,
+.room-card:focus-within {
+    transform: scale(1.17);
+    z-index: 2;
+    border-color: rgba(242, 193, 78, 0.6);
+    box-shadow: 0 18px 40px rgba(124, 126, 64, 0.6);
+    outline: none;
+}
+
+.room-card.selected {
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 18px rgba(242, 193, 78, 0.35);
+}
+
+.room-card.selected:hover,
+.room-card.selected:focus-within {
+    box-shadow: 0 0 24px rgba(242, 193, 78, 0.45), 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Description and Select/Book button shown over the image */
+.room-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px;
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 15%, rgba(10, 10, 10, 0.6) 70%, rgba(10, 10, 10, 0.25));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+}
+
+.room-card:hover .room-hover,
+.room-card:focus-within .room-hover,
+.room-card.selected .room-hover {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.room-description {
+    margin: 10px;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: var(--text);
+}
+
+.room-action {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+.room-card .card-img-top {
+    height: 150px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #2a2216, #111);
+}
+
+.room-card .card-title {
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.room-id {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.room-meta {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.room-meta i {
+    color: var(--gold);
+    margin:20px;
+}
+
+.room-equipment {
+    display: flex;
+    gap: 9px;
+    color: var(--muted);
+    font-size: 1.15rem;
+}
+
+.empty-message {
+    color: var(--muted);
+    padding: 32px 0;
+}
+
+/* ///STATUS BADGES/// */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    border: 1px solid;
+}
+
+.status-active,
+.status-completed {
+    color: #6fdc8c;
+    background-color: rgba(221, 229, 222, 0.18);
+    border-color: rgba(219, 221, 219, 0.5);
+}
+
+.status-inactive,
+.status-cancelled {
+    color: #ff8a80;
+    background-color: rgba(231, 87, 87, 0.18);
+    border-color: rgba(225, 199, 199, 0.5);
+}
+
+.status-booked {
+    color: var(--gold);
+    background-color: rgba(242, 193, 78, 0.15);
+    border-color: rgba(242, 193, 78, 0.5);
+}
+
+.status-progress {
+    color: #ffb36b;
+    background-color: rgba(255, 140, 40, 0.15);
+    border-color: rgba(255, 140, 40, 0.5);
+}
+
+/* ///TABLES/// */
+.table-panel {
+    background-color: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-panel .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--text);
+    --bs-table-border-color: rgba(255, 255, 255, 0.06);
+}
+
+.table-panel thead th {
+    background-color: var(--panel-light);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    padding: 14px 12px;
+}
+
+.table-panel tbody td {
+    padding: 12px;
+    font-size: 0.92rem;
+    white-space: nowrap;
+}
+
+.table-panel tbody tr:hover td {
+    background-color: rgba(242, 193, 78, 0.04);
+}
+
+.table-panel .table td.gold-text {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.room-name {
+    color: var(--gold);
+    font-weight: 500;
+}
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable i {
+    color: var(--gold);
+    font-size: 0.8rem;
+}
+
+.avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #2b2416;
+    border: 1px solid var(--gold-dark);
+    color: var(--text);
+    font-size: 0.85rem;
+}
+
+.btn-action {
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 1.05rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.btn-action:hover {
+    background-color: rgba(242, 193, 78, 0.12);
+}
+
+/* ///MODAL/// */
+.modal-content {
+    background-color: var(--panel);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+}
+
+.modal-title {
+    color: var(--gold);
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--border);
+}
+
+.modal .form-control:focus,
+.modal .form-select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(242, 193, 78, 0.2);
+}
+
+/* ///FOOTER/// */
+footer {
+    background-color: var(--panel);
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+
+footer a:hover {
+    color: var(--gold) !important;
+}
+
+/* ///ERROR MESSAGES/// */
+.error-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid rgba(200, 50, 50, 0.5);
+    border-radius: 10px;
+    background-color: rgba(200, 50, 50, 0.12);
+    color: #ff8a80;
+    font-size: 0.9rem;
+}
+
+.error-rule {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 0 8px;
+    border-radius: 6px;
+    background-color: rgba(200, 50, 50, 0.35);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.ended-early {
+    color: #ffb36b;
+    font-size: 0.78rem;
+}
+
+.modal .form-text {
+    color: var(--muted);
+}
+
+/* ///ROOM USAGE/// */
+.usage-period {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.usage-summary {
+    color: #6fdc8c;
+    font-weight: 500;
+}
+
+.usage-summary.has-underused {
+    color: #ff8a80;
+}
+
+.usage-bar {
+    width: 140px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.usage-fill {
+    height: 100%;
+    background-color: var(--gold);
+}
+
+.usage-fill.low {
+    background-color: #ff8a80;
+}
+
+.usage-value {
+    min-width: 48px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* "Export PDF" prints the page; the browser's print dialog can save it as a PDF */
+@media print {
+    #sidebar,
+    .sidebar-open,
+    footer,
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: #fff !important;
+        color: #000;
+    }
+
+    main {
+        margin-left: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .page-title,
+    .room-name {
+        color: #000 !important;
+    }
+
+    .table-panel {
+        border-color: #ccc;
+        background: #fff;
+    }
+
+    .table-panel .table {
+        --bs-table-color: #000;
+    }
+
+    .table-panel thead th {
+        background-color: #eee;
+        color: #000;
+    }
+}

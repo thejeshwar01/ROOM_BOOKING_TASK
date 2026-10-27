@@ -1,0 +1,44 @@
+{
+    // F5 (Run > Start Debugging) with "Run Full Application" starts the API and the Vite front end together,
+    // then opens the website at http://localhost:5173 once the API is listening.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Backend (.NET)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-backend",
+            "program": "${workspaceFolder}/MeetingRooms.Api/bin/Debug/net8.0/MeetingRooms.Api.dll",
+            "cwd": "${workspaceFolder}/MeetingRooms.Api",
+            // Same port the Vite proxy forwards /api to (vite.config.js)
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5228"
+            },
+            // Don't open the API address (it has no page); open the website instead
+            "launchBrowser": { "enabled": false },
+            "serverReadyAction": {
+                "pattern": "Now listening on:\\s+https?://\\S+",
+                "uriFormat": "http://localhost:5173",
+                "action": "openExternally"
+            },
+            "presentation": { "hidden": true }
+        },
+        {
+            "name": "Frontend (Vite)",
+            "type": "node-terminal",
+            "request": "launch",
+            // npm.cmd, not npm: PowerShell script execution is restricted on this machine, which blocks npm.ps1
+            "command": "npm.cmd run dev",
+            "cwd": "${workspaceFolder}/meeting-rooms-react",
+            "presentation": { "hidden": true }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Run Full Application",
+            "configurations": ["Backend (.NET)", "Frontend (Vite)"],
+            "stopAll": true
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+@host = http://localhost:5228
+
+### Rooms with at least 8 seats and a projector
+GET {{host}}/api/rooms?minCapacity=8&equipment=projector
+Accept: application/json
+
+### Floors for the filter
+GET {{host}}/api/rooms/floors
+
+### Users with their active reservation count
+GET {{host}}/api/users
+
+### Booked reservations
+GET {{host}}/api/reservations?status=Booked
+
+### Configured booking limits
+GET {{host}}/api/reservations/rules
+
+### Create a reservation (breaks R5: room 006 holds 4 people)
+# Set the dates to a day within the next 90 days, otherwise R4/R6 are reported first
+POST {{host}}/api/reservations
+Content-Type: application/json
+
+{
+  "roomId": 6,
+  "organizerId": 7,
+  "title": "Too many people",
+  "startTime": "2026-12-01T10:00:00Z",
+  "endTime": "2026-12-01T11:00:00Z",
+  "attendees": 30
+}
+
+### Room usage report for the last 30 days
+GET {{host}}/api/reports/room-usage

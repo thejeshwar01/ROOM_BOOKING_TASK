@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-backend",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "${workspaceFolder}/MeetingRooms.Api/MeetingRooms.Api.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
